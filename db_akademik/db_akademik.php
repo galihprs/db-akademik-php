@@ -4,9 +4,7 @@ session_start();
 
 $self = basename($_SERVER['PHP_SELF']);
 
-// =========================================================================
 // 1. KONEKSI DATABASE
-// =========================================================================
 $host = 'localhost';
 $user = 'root';
 $pass = '';
@@ -17,9 +15,7 @@ if ($conn->connect_error) {
     die("Koneksi Database Gagal: " . $conn->connect_error);
 }
 
-// =========================================================================
-// 2. ENDPOINT AJAX UNTUK UPDATE SESSION BAHASA TANPA RELOAD
-// =========================================================================
+// 2. ENDPOINT UNTUK UPDATE SESSION BAHASA
 if (isset($_GET['ajax_lang'])) {
     $lang_code = $_GET['ajax_lang'];
     if ($lang_code === 'id' || $lang_code === 'en') {
@@ -90,9 +86,7 @@ $translations = [
 ];
 $lang = $translations[$_SESSION['lang']];
 
-// =========================================================================
 // 3. LOGIKA AKSI & ROUTING
-// =========================================================================
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $page   = isset($_GET['page']) ? $_GET['page'] : 'list';
 $msg    = isset($_GET['msg']) ? $_GET['msg'] : '';
@@ -159,7 +153,7 @@ if ($is_logged_in) {
         }
     }
 
-    // 3. Update Data - Nama & Jurusan otomatis kapital semua
+    // 3. Update Data - Nama & Jurusan otomatis kapital
     if ($page == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['do_update'])) {
         $id      = intval($_POST['id']);
         $nim     = trim($_POST['nim']);
